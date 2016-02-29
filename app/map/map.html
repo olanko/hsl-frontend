@@ -1,4 +1,5 @@
 <button ng-click="updateTrams()">Päivitä</button>
+<leaflet height="480px" center="center"></leaflet>
 <div class="container">
 	<ul>
 		<li ng-repeat="t in trams | orderBy: t.VP.veh" ng-model="trams">

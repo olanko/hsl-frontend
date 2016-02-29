@@ -8,7 +8,10 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     templateUrl: 'map/map.html',
     controller: 'MapCtrl'
   });
-  $routeProvider.otherwise({redirectTo: '/'});
+  $routeProvider.otherwise({redirectTo: function() {
+      return '/?c=60.1838:24.9536:14';
+    }
+  });
 
   $locationProvider.html5Mode(true);
 }]);
