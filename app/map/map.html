@@ -1,0 +1,8 @@
+<button ng-click="updateTrams()">Päivitä</button>
+<div class="container">
+	<ul>
+		<li ng-repeat="t in trams | orderBy: t.VP.veh" ng-model="trams">
+		{{ t.VP.veh }}: {{ t.VP.lat }}, {{ t.VP.long }} hdg: {{ t.VP.hdg }}, spd: {{ t.VP.spd }}
+		</li>
+	</ul>
+</div>
