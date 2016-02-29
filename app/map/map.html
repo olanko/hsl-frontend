@@ -1,9 +1,10 @@
 <button ng-click="updateTrams()">Päivitä</button>
-<leaflet height="480px" center="center"></leaflet>
-<div class="container">
+<leaflet height="480px" center="center" markers="markers"></leaflet>
+<!-- <div class="container">
 	<ul>
 		<li ng-repeat="t in trams | orderBy: t.VP.veh" ng-model="trams">
-		{{ t.VP.veh }}: {{ t.VP.lat }}, {{ t.VP.long }} hdg: {{ t.VP.hdg }}, spd: {{ t.VP.spd }}
+		{{ t.message }}: {{ t.lat }}, {{ t.long }} hdg: {{ t.hdg }}, spd: {{ t.spd }}
 		</li>
 	</ul>
 </div>
+ -->

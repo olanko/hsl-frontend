@@ -13,7 +13,8 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 	},
     defaults: {
         scrollWheelZoom: false
-    }
+    },
+    markers: $scope.trams
   });
 
   $scope.trams = {};
@@ -23,9 +24,10 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 	  .then(function(resp) {
 	  	$scope.trams = resp.data;
 
-	  	trams.forEach(function(t) {
-	  		
-	  	});
+		angular.extend($scope, {
+          markers: $scope.trams
+        });
+
 	  })
 	  .catch(function(err) {
 	  	console.log(err);
