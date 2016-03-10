@@ -20,9 +20,29 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
   $scope.trams = {};
 
   $scope.updateTrams = function () {
-	$http.get('http://localhost:5005')
+	$http.get('http://37.139.24.180/hsljson')
 	  .then(function(resp) {
 	  	$scope.trams = resp.data;
+      console.log(resp.data);
+
+    _.forEach($scope.trams, function(tram, key) {
+      tram.icon = {
+        type: 'awesomeMarker',
+        icon: 'glyphicon-map-marker',
+        markerColor: 'blue'
+      };
+
+      if (tram.dl > 60) {
+        tram.icon.markerColor = 'orange';
+      }
+      if (tram.dl > 120) {
+        tram.icon.markerColor = 'red';
+      }
+      if (tram.dl < -30) {
+        tram.icon.markerColor = 'green';
+      }
+
+    });
 
 		angular.extend($scope, {
           markers: $scope.trams
@@ -44,5 +64,5 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 
   //https://www.openstreetmap.org/#map=14/60.1837/24.9509
 
-  //setInterval($scope.updateTrams, 5000);
+  setInterval($scope.updateTrams, 1000);
 }]);
