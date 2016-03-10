@@ -1,10 +1,3 @@
-<button ng-click="updateTrams()">Päivitä</button>
+<label for="filtertext">Etsi</label> <input type="text" ng-model="filtertext">
+
 <leaflet height="600px" center="center" markers="markers"></leaflet>
-<!-- <div class="container">
-	<ul>
-		<li ng-repeat="t in trams | orderBy: t.VP.veh" ng-model="trams">
-		{{ t.message }}: {{ t.lat }}, {{ t.long }} hdg: {{ t.hdg }}, spd: {{ t.spd }}
-		</li>
-	</ul>
-</div>
- -->

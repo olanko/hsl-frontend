@@ -5,6 +5,7 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 .controller('MapCtrl', ['$http', '$scope', '$location', function($http, $scope, $location) {
   'use strict';
 
+
   angular.extend($scope, {
 	center: {
 	  lat: 60.1838,
@@ -18,12 +19,14 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
   });
 
   $scope.trams = {};
+  $scope.filtertext = '';
 
   $scope.updateTrams = function () {
 	$http.get('http://37.139.24.180/hsljson')
 	  .then(function(resp) {
-	  	$scope.trams = resp.data;
-      console.log(resp.data);
+	  	$scope.trams = _.filter(resp.data, function(o) {
+        return o.message.match($scope.filtertext);
+      });
 
     _.forEach($scope.trams, function(tram, key) {
       tram.icon = {
@@ -34,12 +37,14 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 
       if (tram.dl > 60) {
         tram.icon.markerColor = 'orange';
+        tram.message = tram.message + '\n' + 'Myöhässä ' + tram.dl;
       }
       if (tram.dl > 120) {
         tram.icon.markerColor = 'red';
       }
       if (tram.dl < -30) {
         tram.icon.markerColor = 'green';
+        tram.message = tram.message + '\n' + 'Etuajassa ' + tram.dl;
       }
 
     });
