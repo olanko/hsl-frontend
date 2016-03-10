@@ -31,8 +31,9 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
     _.forEach($scope.trams, function(tram, key) {
       tram.icon = {
         type: 'awesomeMarker',
-        icon: 'glyphicon-map-marker',
-        markerColor: 'blue'
+        icon: '-', //glyphicon-map-marker
+        markerColor: 'blue',
+        html: '<b>' + tram.message + '</b>'
       };
 
       if (tram.dl > 180) {
