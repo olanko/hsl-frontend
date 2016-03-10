@@ -20,7 +20,7 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
   $scope.trams = {};
 
   $scope.updateTrams = function () {
-	$http.get('http://37.139.24.180/hsljson')
+	$http.get('/hsljson')
 	  .then(function(resp) {
 	  	$scope.trams = resp.data;
       console.log(resp.data);
