@@ -35,14 +35,14 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
         markerColor: 'blue'
       };
 
-      if (tram.dl > 60) {
+      if (tram.dl > 180) {
         tram.icon.markerColor = 'orange';
         tram.message = tram.message + '\n' + 'Myöhässä ' + tram.dl;
       }
-      if (tram.dl > 120) {
+      if (tram.dl > 600) {
         tram.icon.markerColor = 'red';
       }
-      if (tram.dl < -30) {
+      if (tram.dl < -60) {
         tram.icon.markerColor = 'green';
         tram.message = tram.message + '\n' + 'Etuajassa ' + tram.dl;
       }
