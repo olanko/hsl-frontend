@@ -1,3 +1,10 @@
-<label for="filtertext">Etsi</label> <input type="text" ng-model="filtertext">
 
-<leaflet height="600px" center="center" markers="markers"></leaflet>
+<div class="ontop container-fluid">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 ">
+			<input class="form-control" type="text" placeholder="Etsi" ng-model="filtertext">
+		</div>
+	</div>
+</div>
+
+<leaflet height="600px" class="map" defaults="defaults" center="center" markers="markers"></leaflet>

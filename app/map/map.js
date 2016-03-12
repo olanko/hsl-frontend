@@ -5,15 +5,15 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 .controller('MapCtrl', ['$http', '$scope', '$location', function($http, $scope, $location) {
   'use strict';
 
-
   angular.extend($scope, {
-	center: {
-	  lat: 60.1838,
-	  lng: 24.9536,
-	  zoom: 14
-	},
+  	center: {
+  	  lat: 60.1838,
+  	  lng: 24.9536,
+  	  zoom: 14
+  	},
     defaults: {
-        scrollWheelZoom: false
+      zoomControlPosition: 'topright',
+      scrollWheelZoom: true
     },
     markers: $scope.trams
   });
