@@ -12,6 +12,7 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
   	  zoom: 14
   	},
     defaults: {
+      zoomControl: false,
       zoomControlPosition: 'topright',
       scrollWheelZoom: true
     },
