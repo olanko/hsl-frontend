@@ -27,9 +27,10 @@ function get_positions(conn, cb) {
                             message: t.VP.desi,
                             hdg: t.VP.hdg,
                             spd: t.VP.spd,
-                            dl: t.VP.dl
+                            dl: t.VP.dl,
+                            veh: t.VP.veh
                           };
-                        }).keyBy('message').value();
+                        }).keyBy('veh').value();
 
                         //setTimeout(function() {
                           ch.close();
