@@ -22,7 +22,7 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
   $scope.filtertext = '';
 
   $scope.updateTrams = function () {
-	$http.get('/hsljson')
+	$http.get('http://37.139.24.180/hsljson')
 	  .then(function(resp) {
 	  	$scope.trams = _.filter(resp.data, function(o) {
         return o.message.match($scope.filtertext);
