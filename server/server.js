@@ -19,7 +19,7 @@ function get_positions(conn, cb) {
                         //console.log('reload at ' + Date.now());
 
                         msg = JSON.parse(msg.content);
-                        console.log(msg);
+
                         trams = _(msg).map(function(t) {
                           return {
                             lat: t.VP.lat,
