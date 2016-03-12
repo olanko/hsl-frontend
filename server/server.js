@@ -2,7 +2,7 @@ var amqp = require('amqplib/callback_api');
 var _ = require('lodash');
 
 function create_conn(cb) {
-  amqp.connect('amqp://192.168.0.2', function(err, conn) {
+  amqp.connect('amqp://localhost', function(err, conn) {
     cb(conn);
   });
 }
