@@ -15,7 +15,10 @@
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
   },
   "dependencies": {
+    "amqplib": "^0.4.1",
     "bower": "^1.7.7",
-    "http-server": "^0.9.0"
+    "http": "0.0.0",
+    "http-server": "^0.9.0",
+    "lodash": "^4.6.1"
   }
 }
