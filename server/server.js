@@ -19,11 +19,12 @@ function get_positions(conn, cb) {
                         //console.log('reload at ' + Date.now());
 
                         msg = JSON.parse(msg.content);
+                        console.log(msg);
                         trams = _(msg).map(function(t) {
                           return {
                             lat: t.VP.lat,
                             lng: t.VP.long,
-                            message: t.VP.veh,
+                            message: t.VP.desi,
                             hdg: t.VP.hdg,
                             spd: t.VP.spd,
                             dl: t.VP.dl
