@@ -4,7 +4,7 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 })
 .controller('MapCtrl', ['$http', '$scope', '$location', function($http, $scope, $location) {
   'use strict';
-  
+
   $scope.trams = {};
   $scope.filtertext = '';
 
@@ -35,7 +35,7 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
         type: 'awesomeMarker',
         icon: '-', //glyphicon-map-marker
         markerColor: 'blue',
-        html: '<b>' + tram.message + '</b>'
+        html: '<b>' + tram.VP.desi + '</b>'
       };
 
       if (tram.dl > 180) {
