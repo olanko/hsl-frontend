@@ -7,6 +7,27 @@ function create_conn(cb) {
   });
 }
 
+/*{
+        desi: '10',
+        dir: '1',
+        oper: 'XXX',
+        veh: 'RHKL00093',
+        tst: '2016-03-12T14:59:44.000Z',
+        tsi: 1457794784,
+        spd: 4.37,
+        hdg: 77,
+        lat: 60.166382,
+        long: 24.930009,
+        dl: 20,
+        odo: 821,
+        oday: '2016-03-12',
+        jrn: 'XXX',
+        line: 'XXX',
+        start: '1656',
+        stop_index: 5,
+        source: 'hsl live'
+}*/
+
 function get_positions(conn, cb) {
     var trams = {};
         conn.createChannel(function(err, ch) {
@@ -25,10 +46,9 @@ function get_positions(conn, cb) {
                             lat: t.VP.lat,
                             lng: t.VP.long,
                             message: t.VP.desi,
-                            hdg: t.VP.hdg,
-                            spd: t.VP.spd,
                             dl: t.VP.dl,
-                            veh: t.VP.veh
+                            veh: t.VP.veh,
+                            VP: t.VP
                           };
                         }).keyBy('veh').value();
 
