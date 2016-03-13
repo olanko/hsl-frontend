@@ -28,8 +28,9 @@ function create_conn(cb) {
         source: 'hsl live'
 }*/
 
+var trams = {};
+
 function get_positions(conn, cb) {
-    var trams = {};
         conn.createChannel(function(err, ch) {
             ch.assertQueue('', {exclusive: true}, function(err, q) {
                 var corr = generateUuid();
@@ -52,9 +53,9 @@ function get_positions(conn, cb) {
                           };
                         }).keyBy('veh').value();
 
-                        //setTimeout(function() {
-                          ch.close();
-                        //}, 1000);
+                        q.close();
+                        ch.close();
+
                         cb(trams);
                     }
                 }, {noAck: true});
@@ -79,11 +80,11 @@ const port = 5005;
 
 create_conn(function(conn) {
   http.createServer((req, res) => {
-    get_positions(conn, positions => {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.writeHead(200, { 'Access-Control-Allow-Origin': '*' });
-        res.end(JSON.stringify(positions));
-    });
+    get_positions(conn);
+
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.writeHead(200, { 'Access-Control-Allow-Origin': '*' });
+    res.end(JSON.stringify(trams));
   }).listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
   });
