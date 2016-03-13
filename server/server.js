@@ -53,7 +53,7 @@ function get_positions(conn, cb) {
                           };
                         }).keyBy('veh').value();
 
-                        //ch.close();
+                        ch.close();
 
                         cb(trams);
                     }
