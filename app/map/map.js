@@ -4,13 +4,16 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 })
 .controller('MapCtrl', ['$http', '$scope', '$location', function($http, $scope, $location) {
   'use strict';
+  
+  $scope.trams = {};
+  $scope.filtertext = '';
 
   angular.extend($scope, {
-  	center: {
-  	  lat: 60.1838,
-  	  lng: 24.9536,
-  	  zoom: 14
-  	},
+    center: {
+      lat: 60.1838,
+      lng: 24.9536,
+      zoom: 14
+    },
     defaults: {
       zoomControl: false,
       zoomControlPosition: 'topright',
@@ -18,9 +21,6 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
     },
     markers: $scope.trams
   });
-
-  $scope.trams = {};
-  $scope.filtertext = '';
 
   $scope.updateTrams = function () {
 	$http.get('http://37.139.24.180/hsljson')
@@ -30,6 +30,7 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
       });
 
     _.forEach($scope.trams, function(tram, key) {
+      tram.routeCode = $scope.routeCode(tram.VP.desi, tram.VP.dir);
       tram.icon = {
         type: 'awesomeMarker',
         icon: '-', //glyphicon-map-marker
@@ -53,7 +54,7 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 
 		angular.extend($scope, {
           markers: $scope.trams
-        });
+    });
 
 	  })
 	  .catch(function(err) {
@@ -63,13 +64,69 @@ angular.module('hslMapApp.map', ['leaflet-directive'])
 
   $scope.updateTrams();
 
-  $scope.$on("centerUrlHash", function(event, centerHash) {
-    $location.search({
-    	c: centerHash
-    });
+  $scope.routeCode = function (name, dir) {
+    /* Parse route code to HSL format
+      example: '1009 1'
+        1 = Helsinki
+        9 = tram number,
+        last 1 = direction
+    */
+
+    name = name.replace(/\D/g, '');
+    return '1' + ('000' + name).slice(-3) + ('   ' + dir).slice(-3);
+  };
+
+  $scope.routes = {};
+  $scope.paths = {};
+
+  angular.extend($scope, {
+      paths: $scope.paths
   });
 
-  //https://www.openstreetmap.org/#map=14/60.1837/24.9509
+  $scope.showRoute = function (code) {
+    console.log('showRoute: %s', code);
+    if ($scope.routes[code]) {
+      var r = $scope.routes[code];
 
+      $scope.paths[code] = {
+          type: 'polyline',
+          color: 'red',
+          latlngs: r.coordinates
+      } ;
+
+      console.log($scope.paths);
+    }
+  };
+
+  $scope.hideRoute = function (code) {
+    console.log('hideRoute: %s', code);
+    if ($scope.paths[code]) {
+      delete $scope.paths[code];
+    }
+  };
+
+  $scope.getRoute = function (name, cb) {
+    $http.get('http://localhost:6006/route/' + name)
+    .then(function (resp) {
+      _.forEach(resp.data, function (r) {
+        $scope.routes[r.code] = r;
+
+        r.coordinates = _.split(r.line_shape, '|').map(function (o) {
+          var coord = _.split(o, ',');
+          var lat = coord[1], lng = coord[0];
+          return { lat: +lat, lng: +lng };
+        });
+      });
+      $scope.showRoute(resp.data[0].code); //$scope.routeCode(name, '1'));
+    });
+  };
+
+/*  $scope.getRoute('9');
+  $scope.getRoute('63');
+  $scope.getRoute('72');
+
+  setTimeout(function () {
+      $scope.hideRoute('1009  1');
+  }, 10000); */
   setInterval($scope.updateTrams, 1000);
 }]);
