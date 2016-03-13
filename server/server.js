@@ -36,7 +36,8 @@ function get_positions(conn, cb) {
                 var corr = generateUuid();
 
                 ch.consume(q.queue, function(msg) {
-                    if (msg.properties.correlationId == corr) {
+                    // only one message per queue, so checking corr unnecessary
+                    //if (msg.properties.correlationId == corr) {
 
                         //console.log('reload at ' + Date.now());
 
@@ -56,7 +57,7 @@ function get_positions(conn, cb) {
                         ch.close();
 
                         cb(trams);
-                    }
+                    //}
                 }, {noAck: true});
 
                 ch.sendToQueue('hsl_positions',
