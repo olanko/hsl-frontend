@@ -53,7 +53,7 @@ function get_positions(conn, cb) {
                           };
                         }).keyBy('veh').value();
 
-                        ch.close();
+                        //ch.close();
 
                         cb(trams);
                     }
@@ -79,7 +79,9 @@ const port = 5005;
 
 create_conn(function(conn) {
   http.createServer((req, res) => {
-    get_positions(conn);
+    get_positions(conn, function (data) {
+      console.log("positions updated");
+    });
 
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.writeHead(200, { 'Access-Control-Allow-Origin': '*' });
