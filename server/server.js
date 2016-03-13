@@ -81,7 +81,7 @@ const port = 5005;
 create_conn(function(conn) {
   http.createServer((req, res) => {
     get_positions(conn, function (data) {
-      console.log("positions updated");
+      //console.log("positions updated");
     });
 
     res.writeHead(200, { 'Content-Type': 'text/plain' });
