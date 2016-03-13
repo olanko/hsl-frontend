@@ -32,7 +32,7 @@ var trams = {};
 
 function get_positions(conn, cb) {
         conn.createChannel(function(err, ch) {
-            ch.assertQueue('', { exclusive: true, autodelete: true }, function(err, q) {
+            ch.assertQueue('', { exclusive: true, autodelete: true, expires: 10000 }, function(err, q) {
                 var corr = generateUuid();
 
                 ch.consume(q.queue, function(msg) {
