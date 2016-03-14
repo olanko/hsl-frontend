@@ -3,6 +3,10 @@ var _ = require('lodash');
 
 function create_conn(cb) {
   amqp.connect('amqp://localhost', function(err, conn) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
     cb(conn);
   });
 }
@@ -32,7 +36,19 @@ var trams = {};
 
 function get_positions(conn, cb) {
         conn.createChannel(function(err, ch) {
-            ch.assertQueue('', { exclusive: true, autodelete: true, expires: 10000 }, function(err, q) {
+            if (err) {
+              console.error(err);
+              process.exit(1);
+            }
+            ch.assertQueue('', {
+                exclusive: true,
+                autodelete: true,
+                expires: 10000
+            }, function(err, q) {
+                if (err) {
+                  console.error(err);
+                  process.exit(1);
+                }
                 var corr = generateUuid();
 
                 ch.consume(q.queue, function(msg) {
