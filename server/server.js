@@ -59,16 +59,18 @@ function get_positions(conn, cb) {
 
                         msg = JSON.parse(msg.content);
 
-                        trams = _(msg).map(function(t) {
-                          return {
-                            lat: t.VP.lat,
-                            lng: t.VP.long,
-                            message: t.VP.desi,
-                            dl: t.VP.dl,
-                            veh: t.VP.veh,
-                            VP: t.VP
-                          };
-                        }).keyBy('veh').value();
+                        if (msg) {
+                          trams = _(msg).map(function(t) {
+                            return {
+                              lat: t.VP.lat,
+                              lng: t.VP.long,
+                              message: t.VP.desi,
+                              dl: t.VP.dl,
+                              veh: t.VP.veh,
+                              VP: t.VP
+                            };
+                          }).keyBy('veh').value();
+                        }
 
                         ch.close();
 
