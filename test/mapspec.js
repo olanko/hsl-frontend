@@ -33,7 +33,7 @@ describe('MapCtrl', function() {
     expect(scope.routeCode('6T', '2')).toEqual('1006  2');
   });
 
-  it('scope.updateTrams()', function () {
+  it('$scope.updateTrams()', function () {
     $httpBackend.expectGET('http://37.139.24.180/hsljson');
     scope.updateTrams();
     $httpBackend.flush();
