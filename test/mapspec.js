@@ -1,19 +1,12 @@
 describe('MapCtrl', function() {
-  beforeEach(module('hslMapApp.map'));
-
-  var $controller;
-
-  beforeEach(inject(function(_$controller_){
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
-  }));
+  'use strict';
+  beforeEach(angular.mock.module('hslMapApp.map'));
 
   describe('$scope.routeCode', function() {
-    var $scope, controller;
-    beforeEach(function() {
-      $scope = {};
-      controller = $controller('MapCtrl', { $scope: $scope });
-    });
+    var $scope = {};
+    beforeEach(angular.mock.inject(function ($controller) {
+      $controller('MapCtrl', { $scope: $scope });
+    }));
     it('get route code for 1, 4, 6 and 9', function() {
       expect($scope.routeCode('1', '1')).toEqual('1001  1');
       expect($scope.routeCode('4', '1')).toEqual('1004  1');
